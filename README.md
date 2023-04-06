@@ -1,6 +1,6 @@
 # KeyboardListenerKit
 
-A Swift package for listening to global keyboard events in SwiftUI macOS applications.
+A Swift package for listening to global keyboard events in macOS applications.
 
 ## Features
 
