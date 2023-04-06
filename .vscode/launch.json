@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "name": "Debug example",
+            "program": "${workspaceFolder:keylistener}/.build/debug/example",
+            "args": [],
+            "cwd": "${workspaceFolder:keylistener}",
+            "preLaunchTask": "swift: Build Debug example"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "name": "Release example",
+            "program": "${workspaceFolder:keylistener}/.build/release/example",
+            "args": [],
+            "cwd": "${workspaceFolder:keylistener}",
+            "preLaunchTask": "swift: Build Release example"
+        }
+    ]
+}
