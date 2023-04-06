@@ -7,8 +7,16 @@ listener.callback = { modifierKeys, unicodeString, keyCode in
     print("Key Pressed: \(modifierKeys)\(unicodeString) (\(keyCode))")
 }
 
-listener.startListening()
+let _ = listener.startListening()
 print("Global key listener started. Press any key...")
+
+let keyAppListener = KeyAppListener()
+
+keyAppListener.callback = { app in
+    print("Key App: \(app)")
+}
+
+keyAppListener.startListening()
 
 // Add signal handler for SIGINT
 var signalInterrupt = false

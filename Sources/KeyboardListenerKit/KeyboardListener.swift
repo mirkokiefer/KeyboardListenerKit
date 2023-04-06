@@ -43,7 +43,7 @@ public class KeyboardListener {
   public var callback: ((String, String, Int64) -> Void)?
   
   // Function to start listening to keyboard events
-  public func startListening() {
+  public func startListening() -> Bool {
     let eventMask = (1 << CGEventType.keyDown.rawValue) | (1 << CGEventType.keyUp.rawValue)
     let userInfo = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
     
@@ -53,14 +53,16 @@ public class KeyboardListener {
                                            eventsOfInterest: CGEventMask(eventMask),
                                            callback: eventTapCallback,
                                            userInfo: userInfo) else {
-      print("Failed to create event tap")
-      return
+      debugLog("Failed to create event tap")
+      return false
     }
     
     self.eventTap = eventTap
     
     let runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
     CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
+
+    return true
   }
 
   public init() {}
@@ -78,9 +80,7 @@ public class KeyboardListener {
     let unicodeString = getUnicodeString(from: event)
     let modifierKeys = getModifierKeys(from: event)
     let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
-    
-    print("Character typed: \(modifierKeys) \(unicodeString) \(keyCode)")
-    
+        
     callback?(modifierKeys, unicodeString, keyCode)
   }
   
@@ -94,7 +94,12 @@ public class KeyboardListener {
   }
   
   deinit {
-    print("deinit")
     stopListening()
   }
+}
+
+func debugLog(_ items: Any...) {
+    #if DEBUG
+    print(items)
+    #endif
 }
