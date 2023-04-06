@@ -37,7 +37,7 @@ func getModifierKeys(from event: CGEvent) -> String {
 }
 
 // Class to listen to global keyboard events
-public class GlobalKeyListener {
+public class KeyboardListener {
   private var lastThreeCharacters: String = ""
   private var eventTap: CFMachPort?
   public var callback: ((String, String, Int64) -> Void)?
@@ -87,7 +87,7 @@ public class GlobalKeyListener {
   // Callback function for the key event tap
   private let eventTapCallback: CGEventTapCallBack = { (proxy, type, event, refcon) -> Unmanaged<CGEvent>? in
     if let refcon = refcon, type == .keyDown {
-      let listener = Unmanaged<GlobalKeyListener>.fromOpaque(refcon).takeUnretainedValue()
+      let listener = Unmanaged<KeyboardListener>.fromOpaque(refcon).takeUnretainedValue()
       listener.processKeyEvent(event)
     }
     return Unmanaged.passRetained(event)

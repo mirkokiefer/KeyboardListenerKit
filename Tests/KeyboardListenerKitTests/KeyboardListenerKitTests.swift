@@ -1,9 +1,9 @@
 import XCTest
-@testable import keylistener
+@testable import KeyboardListenerKit
 
-final class keylistenerTests: XCTestCase {
+final class KeyboardListenerKitTests: XCTestCase {
     func testGlobalKeyListener() {
-        let listener = GlobalKeyListener()
+        let listener = KeyboardListener()
         XCTAssertNotNil(listener)
         
         listener.startListening()

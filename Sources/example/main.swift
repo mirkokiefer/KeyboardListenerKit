@@ -1,20 +1,20 @@
-import keylistener
+import KeyboardListenerKit
 import Foundation
 
-let globalKeyListener = GlobalKeyListener()
+let listener = KeyboardListener()
 
-globalKeyListener.callback = { modifierKeys, unicodeString, keyCode in
+listener.callback = { modifierKeys, unicodeString, keyCode in
     print("Key Pressed: \(modifierKeys)\(unicodeString) (\(keyCode))")
 }
 
-globalKeyListener.startListening()
+listener.startListening()
 print("Global key listener started. Press any key...")
 
 // Add signal handler for SIGINT
 var signalInterrupt = false
 let signalHandler: @convention(c) (Int32) -> Void = { _ in
     signalInterrupt = true
-    globalKeyListener.stopListening()
+    listener.stopListening()
     CFRunLoopStop(CFRunLoopGetCurrent())
 }
 signal(SIGINT, signalHandler)
